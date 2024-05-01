@@ -1,0 +1,8 @@
+POST  http://localhost:3003/api/todos
+Content-Type: application/json
+
+{
+  "title": "Wash the dishes",
+  "deadline": "2023-10-22",
+  "favorite": "true"
+}
