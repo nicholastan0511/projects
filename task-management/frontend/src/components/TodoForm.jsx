@@ -1,7 +1,7 @@
 import { useState } from "react"
-import todoService from "../services/todoService"
 import { useDispatch } from "react-redux"
 import { addTodo } from "../reducers/todoReducer"
+import Error from "./Error"
 
 const TodoForm = () => {
   const [title, setTitle] = useState('')
@@ -22,6 +22,7 @@ const TodoForm = () => {
 
   return (
     <div>
+      <Error />
       <form onSubmit={submit}>
         <div>
           <input type="text" onChange={({ target }) => setTitle(target.value)} value={title}/>
