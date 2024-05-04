@@ -20,6 +20,7 @@ mongoose.connect(url)
 
 app.use(express.json())
 app.use(cors())
+app.use(middleware.tokenExtractor)
 
 app.use('/api/todos', todoRouter)
 

@@ -1,7 +1,7 @@
 const todoRouter = require('express').Router()
-const todo = require('../models/todo')
 const Todo = require('../models/todo')
 const mongoose = require('mongoose')
+const middleware = require('../utils/middleware')
 
 todoRouter.get('/', async (req, res) => {
   const todos = await Todo.find({})
@@ -14,7 +14,7 @@ todoRouter.get('/:id', async (req, res) => {
   mongoose.connection.close()
 })
 
-todoRouter.post('/', async (req, res, next) => {
+todoRouter.post('/', middleware.userExtractor, async (req, res, next) => {
   try {
     const body = req.body
     console.log(body)
@@ -22,18 +22,28 @@ todoRouter.post('/', async (req, res, next) => {
       title: body.title,
       deadline: body.deadline,
       favorite: body.favorite,
-      done: body.done
+      done: body.done,
+      user: body.user
     })
 
     const savedTodo = await todo.save()
+
+    //update user's todos
+    req.user.todos = req.user.todos.concat(savedTodo._id)
+    await req.user.save()
+
     res.status(201).json(savedTodo)
+
   } catch (err) {
     next(err)
   }
 })
 
-todoRouter.put('/:id', async(req, res) => {
+todoRouter.put('/:id', middleware.userExtractor, async(req, res) => {
   const todo = await Todo.findById(req.params.id)
+
+  if (!req.user.id.toString() === todo.user.id.toString())
+    return res.status(401).json({ error: 'invalid user' })
 
   //check if the request is to alter favorite
   if (req.body.favorite) {
@@ -57,8 +67,12 @@ todoRouter.put('/:id', async(req, res) => {
   }
 })
 
-todoRouter.delete('/:id', async (req, res) => {
+todoRouter.delete('/:id', middleware.userExtractor, async (req, res) => {
   const todo = await Todo.findById(req.params.id)
+
+  if (!req.user.id.toString() === todo.user.id.toString())
+    return res.status(401).json({ error: 'invalid user' })
+
   await Todo.deleteOne({ _id: todo._id })
 
   res.status(204).end()
