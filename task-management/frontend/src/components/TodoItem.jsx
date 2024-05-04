@@ -8,9 +8,14 @@ const TodoItem = ({ todo }) => {
     ? '❤️'
     : '🤍'
 
+  const prop = todo.done == 'true'
+    ? 'the task is done'
+    : null
+
   return (
       <>
-        <li>
+        <li onClick={() => dispatch(changeDone(todo))}>
+          {prop}
           <p>{todo.title}</p>
           <p>deadline: {todo.deadline}</p>
           <button onClick={() => dispatch(changeFavorite(todo))}>{heart}</button>

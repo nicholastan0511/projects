@@ -22,7 +22,7 @@ const todoSlice = createSlice({
     alterDone: (state, action) => {
       state.map(todo => {
         if (todo.id == action.payload.id) {
-          todo.done = !todo.done
+          todo.done = action.payload.done
         }
       })
     }
@@ -59,8 +59,8 @@ export const changeFavorite = (obj) => {
 
 export const changeDone = (obj) => {
   return async dispatch => {
-    await todoService.done(obj)
-    dispatch(alterDone(obj))
+    const response = await todoService.done(obj)
+    dispatch(alterDone(response))
   }
 }
 

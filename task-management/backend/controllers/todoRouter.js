@@ -44,13 +44,16 @@ todoRouter.put('/:id', async(req, res) => {
     
 
     const savedTodo = await todo.save()
-    res.json(savedTodo)
+    res.status(200).json(savedTodo)
   //check if the request is to alter done
   } else if (req.body.done) {
-    todo.done = !todo.done
+    if (todo.done == 'true') 
+      todo.done = 'false'
+    else 
+      todo.done = 'true'
 
     const savedTodo = await todo.save()
-    res.json(savedTodo)
+    res.status(200).json(savedTodo)
   }
 })
 

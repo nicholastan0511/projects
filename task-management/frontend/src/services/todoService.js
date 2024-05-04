@@ -17,7 +17,8 @@ const favorite = async (obj) => {
 }
 
 const done = async (obj) => {
-  await axios.put(`http://localhost:3003${baseUrl}/${obj.id}`, { done: obj.done })
+  const response = await axios.put(`http://localhost:3003${baseUrl}/${obj.id}`, { done: obj.done })
+  return response.data
 }
 
 export default {
