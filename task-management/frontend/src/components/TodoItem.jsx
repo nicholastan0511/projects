@@ -18,8 +18,8 @@ const TodoItem = ({ todo }) => {
           {prop}
           <p>{todo.title}</p>
           <p>deadline: {todo.deadline}</p>
-          <button onClick={() => dispatch(changeFavorite(todo))}>{heart}</button>
         </li>
+        <button onClick={() => dispatch(changeFavorite(todo))}>{heart}</button>
       </>
     )
 }

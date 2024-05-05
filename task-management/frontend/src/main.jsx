@@ -4,11 +4,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
 import todoSlice from './reducers/todoReducer.js'
 import errorSlice from './reducers/erorrReducer.js'
+import userSlice from './reducers/userReducer.js'
 
 const store = configureStore({
   reducer: {
     todos: todoSlice,
-    error: errorSlice
+    error: errorSlice,
+    user: userSlice
   }
 })
 

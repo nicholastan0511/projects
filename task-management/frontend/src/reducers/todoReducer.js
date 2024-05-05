@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import todoService from "../services/todoService";
 import { setError } from "./erorrReducer";
+import userService from "../services/userService";
 
 const todoSlice = createSlice({
   name: 'todos',
@@ -33,8 +34,8 @@ export const { setTodos, appendTodo, alterFavorite, alterDone } = todoSlice.acti
 
 export const initTodos = () => {
   return async dispatch => {
-    const todos = await todoService.fetchAll()
-    dispatch(setTodos(todos))
+    const user = await userService.fetchUser()
+    dispatch(setTodos(user.todos))
   }
 }
 
@@ -44,7 +45,6 @@ export const addTodo = (obj) => {
       const response = await todoService.addTask(obj)
       dispatch(appendTodo(response))
     } catch (err) {
-      console.log(err.response.data.error)
       dispatch(setError(err.response.data.error))
     }
   }
