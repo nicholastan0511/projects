@@ -25,9 +25,8 @@ const LoginPage = () => {
   }
 
   return (
-    <div>
-    <h2>login</h2>
-    <Form onSubmit={onSubmit}>
+    <div className="loginPage">
+      <Form onSubmit={onSubmit} className="loginForm">
         <Form.Group>
             <Form.Label>username:</Form.Label>
             <Form.Control
@@ -45,9 +44,11 @@ const LoginPage = () => {
             onChange={({ target }) => setPassword(target.value)}
             />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          login
-        </Button>
+        <div>
+          <Button variant="primary" type="submit">
+            login
+          </Button>
+        </div>
       </Form>
     </div>
   ) 

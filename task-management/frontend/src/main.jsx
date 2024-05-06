@@ -5,6 +5,8 @@ import { Provider } from 'react-redux'
 import todoSlice from './reducers/todoReducer.js'
 import errorSlice from './reducers/erorrReducer.js'
 import userSlice from './reducers/userReducer.js'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css'
 
 const store = configureStore({
   reducer: {

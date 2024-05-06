@@ -39,10 +39,20 @@ const done = async (obj) => {
   return response.data
 }
 
+const deleteTodo = async (obj) => {
+  const config = {
+    headers: { authorization: token }
+  }
+
+  const response = await axios.delete(`http://localhost:3003${baseUrl}/${obj.id}`, config)
+  return response.data
+}
+
 export default {
   fetchAll,
   addTask,
   favorite,
   done,
+  deleteTodo,
   setToken
 }

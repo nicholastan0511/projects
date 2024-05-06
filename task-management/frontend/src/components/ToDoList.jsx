@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import TodoItem from "./TodoItem";
+import { ListGroup } from "react-bootstrap";
 
 
 const ToDoList = () => {
@@ -8,13 +9,27 @@ const ToDoList = () => {
   if (!todos)
     return <div>fetching...</div>
 
+  const done = todos.filter(todo => todo.done == 'true')
+  const undone = todos.filter(todo => todo.done == 'false')
+
   return (
     <div>
-      <ul>
-        {todos.map(todo => 
-          <TodoItem key={todo.id} todo={todo}/>
-        )}
-      </ul>
+      <div>
+        To do list
+        <ListGroup>
+          {undone.map(todo => 
+            <TodoItem key={todo.id} todo={todo} />
+          )}
+        </ListGroup>
+      </div>
+      <div>
+        Finished Tasks
+        <ListGroup>
+          {done.map(todo =>
+            <TodoItem key={todo.id} todo={todo} />
+          )}
+        </ListGroup>
+      </div>
     </div>
   )  
 }

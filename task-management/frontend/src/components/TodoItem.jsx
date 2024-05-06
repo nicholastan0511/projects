@@ -1,5 +1,7 @@
 import { changeDone, changeFavorite } from "../reducers/todoReducer";
 import { useDispatch } from "react-redux";
+import { ListGroup, Button } from "react-bootstrap";
+import { deleteOne } from "../reducers/todoReducer";
 
 const TodoItem = ({ todo }) => {
   const dispatch = useDispatch()
@@ -14,12 +16,16 @@ const TodoItem = ({ todo }) => {
 
   return (
       <>
-        <li onClick={() => dispatch(changeDone(todo))}>
-          {prop}
-          <p>{todo.title}</p>
-          <p>deadline: {todo.deadline}</p>
-        </li>
-        <button onClick={() => dispatch(changeFavorite(todo))}>{heart}</button>
+        <ListGroup.Item className="todoItem">
+          <div onClick={() => dispatch(changeDone(todo))}>
+            {prop}
+            <p>{todo.title}</p>
+            <p>deadline: {todo.deadline}</p>
+          </div>
+          <Button onClick={() => dispatch(changeFavorite(todo))}>{heart}</Button>
+          <Button onClick={() => dispatch(deleteOne(todo))}>🗑</Button>
+        </ListGroup.Item>
+      
       </>
     )
 }

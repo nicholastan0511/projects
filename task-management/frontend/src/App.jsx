@@ -24,11 +24,20 @@ const App = () => {
     dispatch(initTodos())
   }, [])
 
+  const logout = () => {
+    dispatch(setUser({}))
+    window.localStorage.clear()
+  }
+
   if (!user.token)
     return <LoginPage />
 
   return (
     <>
+      <p>
+        Welcome {user.username}! 
+        <button onClick={logout}>log out</button>
+      </p>
       <TodoForm />
       <ToDoList />
     </>

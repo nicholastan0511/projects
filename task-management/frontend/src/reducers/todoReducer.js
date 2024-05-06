@@ -26,11 +26,14 @@ const todoSlice = createSlice({
           todo.done = action.payload.done
         }
       })
+    },
+    del: (state, action) => {
+      return state.filter(todo => todo.id != action.payload.id)
     }
   }
 })
 
-export const { setTodos, appendTodo, alterFavorite, alterDone } = todoSlice.actions 
+export const { setTodos, appendTodo, alterFavorite, alterDone, del } = todoSlice.actions 
 
 export const initTodos = () => {
   return async dispatch => {
@@ -61,6 +64,13 @@ export const changeDone = (obj) => {
   return async dispatch => {
     const response = await todoService.done(obj)
     dispatch(alterDone(response))
+  }
+}
+
+export const deleteOne = (obj) => {
+  return async dispatch => {
+    await todoService.deleteTodo(obj)
+    dispatch(del(obj))
   }
 }
 
