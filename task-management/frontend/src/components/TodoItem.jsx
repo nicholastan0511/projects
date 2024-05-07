@@ -22,8 +22,8 @@ const TodoItem = ({ todo }) => {
             <p>{todo.title}</p>
             <p>deadline: {todo.deadline}</p>
           </div>
-          <Button onClick={() => dispatch(changeFavorite(todo))}>{heart}</Button>
-          <Button onClick={() => dispatch(deleteOne(todo))}>🗑</Button>
+          <Button onClick={() => dispatch(changeFavorite(todo))} size="sm" variant="info">{heart}</Button>
+          <Button onClick={() => dispatch(deleteOne(todo))} size="sm" variant="warning">🗑</Button>
         </ListGroup.Item>
       
       </>

@@ -1,13 +1,14 @@
 import { Form, Button } from "react-bootstrap"
-import loginService from "../services/loginService"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { setUser } from "../reducers/userReducer"
-import todoService from "../services/todoService" 
+import { loginUser } from "../reducers/userReducer"
+import Error from "./Error"
 
 const LoginPage = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [validated, setValidated] = useState(false)
+
   const dispatch = useDispatch()
 
   const clearField = () => {
@@ -16,17 +17,22 @@ const LoginPage = () => {
   }
 
   const onSubmit = async (e) => { 
-    e.preventDefault()
-    const user = await loginService.login({ username, password })
-    window.localStorage.setItem('loggedUser', JSON.stringify(user))
-    dispatch(setUser(user))
-    todoService.setToken(user.token)
-    clearField()
+    const form = e.currentTarget
+    if (form.checkValidity() === false) {
+      e.preventDefault()
+      e.stopPropagation()
+    } else {    
+      e.preventDefault()
+      dispatch(loginUser({ username, password }))
+      clearField()
+    }
+
+    setValidated(true)
   }
 
   return (
     <div className="loginPage">
-      <Form onSubmit={onSubmit} className="loginForm">
+      <Form onSubmit={onSubmit} className="loginForm" validated={validated} noValidate>
         <Form.Group>
             <Form.Label>username:</Form.Label>
             <Form.Control
@@ -34,7 +40,9 @@ const LoginPage = () => {
             name="username"
             value={username}
             onChange={({ target }) => setUsername(target.value) }
+            required
             />
+            <Form.Control.Feedback type="invalid">Please insert valid username</Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
             <Form.Label>password:</Form.Label>
@@ -42,7 +50,9 @@ const LoginPage = () => {
             type="password"
             value={password}
             onChange={({ target }) => setPassword(target.value)}
+            required
             />
+            <Form.Control.Feedback type="invalid">Please insert password</Form.Control.Feedback>
         </Form.Group>
         <div>
           <Button variant="primary" type="submit">

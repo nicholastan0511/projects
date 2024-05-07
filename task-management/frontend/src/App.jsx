@@ -9,6 +9,12 @@ import todoService from "./services/todoService"
 import userService from './services/userService'
 import { Button } from "react-bootstrap"
 import Error from "./components/Error"
+import { setError } from "./reducers/erorrReducer"
+import Sidebar from "./components/Sidebar"
+import {
+  BrowserRouter as Router,
+  Routes, Route
+} from 'react-router-dom'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -24,26 +30,33 @@ const App = () => {
       todoService.setToken(user.token)
     } 
     dispatch(initTodos())
+    dispatch(setError(''))
   }, [])
 
-  const logout = () => {
-    dispatch(setUser({}))
-    window.localStorage.clear()
-  }
-
   if (!user.token)
-    return <LoginPage />
+    return  (
+      <div className="app">
+        <Error/>
+        <LoginPage />
+      </div>
+    )
 
   return (
-    <div className="app">
-      <Error/>
-      <p>
-        Welcome {user.username}! 
-        <Button onClick={logout}>log out</Button>
-      </p>
-      <TodoForm />
-      <ToDoList />
-    </div>
+    <Router>
+      <div className="app">
+        <Sidebar />
+        <Error/>
+        <div className="container">
+          <TodoForm />
+
+          <Routes>
+            <Route path="/" element={<ToDoList />} />
+            <Route path="/favorites" element={<ToDoList />} />
+            <Route path="/finished" element={<ToDoList />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   )
 }
 
