@@ -24,9 +24,7 @@ const LoginPage = () => {
     } else {    
       e.preventDefault()
       dispatch(loginUser({ username, password }))
-      clearField()
     }
-
     setValidated(true)
   }
 

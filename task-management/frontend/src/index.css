@@ -11,7 +11,7 @@
   justify-content: center;
   width: 100%;
   min-height: 100vh;
-  background-color: floralwhite;
+  background-color: white;
 }
 
 .loginPage {
@@ -41,7 +41,30 @@
 
 .todoItem {
   display: flex;
-  gap: 10px
+  gap: 10px;
+  justify-content: space-between;
+  transition-duration: 300ms;
+}
+
+.todoItem:hover {
+  background-color: #eeeeee;
+  color: #555555;
+}
+
+.todo-info:hover {
+  cursor: pointer;
+}
+
+.checked {
+  text-decoration: line-through;
+  color: #555555;
+  background-color: #eeeeee;
+}
+
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .todoForm {
@@ -73,7 +96,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fff;
+  background-color: ivory;
   padding: 24px;
   border-radius: 30px;
 }
