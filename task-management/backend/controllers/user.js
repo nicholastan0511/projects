@@ -1,4 +1,3 @@
-const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const userRouter = require('express').Router()
 const User = require('../models/user')
@@ -9,7 +8,7 @@ userRouter.get('/', async (req, res) => {
 })
 
 userRouter.get('/:id', async (req, res) => {
-  const user = await User.findById(req.params.id)
+  const user = await User.findById(req.params.id).populate('todos', { title: 1, deadline: 1, favorite: 1, done: 1 })
   res.json(user)
 })
 

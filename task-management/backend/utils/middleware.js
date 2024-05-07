@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken')
+const User = require('../models/user')
+
 const unknownEndpoint = (req, res, next) => {
   return res.status(404).send({ error: 'unknown endpoint' })
 }
@@ -29,7 +32,7 @@ const userExtractor = async (req, res, next) => {
     return res.status(401).json({ error: 'token invalid' })
   }
 
-  req.user = await UserfindById(decodedToken.id)
+  req.user = await User.findById(decodedToken.id)
 
   next()
 }

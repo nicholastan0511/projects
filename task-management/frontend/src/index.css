@@ -5,6 +5,13 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .loginPage {
@@ -35,4 +42,16 @@ body {
 .todoItem {
   display: flex;
   gap: 10px
+}
+
+.todoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.error {
+  position: absolute;
+  top: 10%;
+  color: red;
 }

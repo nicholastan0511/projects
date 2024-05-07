@@ -17,13 +17,15 @@ todoRouter.get('/:id', async (req, res) => {
 todoRouter.post('/', middleware.userExtractor, async (req, res, next) => {
   try {
     const body = req.body
+    const user = req.user
     console.log(body)
+    console.log(user)
     const todo = new Todo({
       title: body.title,
       deadline: body.deadline,
       favorite: body.favorite,
       done: body.done,
-      user: body.user
+      user: req.user.id
     })
 
     const savedTodo = await todo.save()
@@ -35,6 +37,7 @@ todoRouter.post('/', middleware.userExtractor, async (req, res, next) => {
     res.status(201).json(savedTodo)
 
   } catch (err) {
+    console.log('im not skipped')
     next(err)
   }
 })

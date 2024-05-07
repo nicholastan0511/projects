@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
+import { Alert } from "react-bootstrap"
 import { setError } from "../reducers/erorrReducer"
 
 const Error = () => {
@@ -10,7 +11,7 @@ const Error = () => {
   }, 5000)
 
   if (error)
-    return <div>{error}</div>
+    return <Alert className="error" variant="warning">{error}</Alert>
 
   return null
 }

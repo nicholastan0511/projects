@@ -7,6 +7,8 @@ import LoginPage from './components/LoginPage'
 import { setUser } from "./reducers/userReducer"
 import todoService from "./services/todoService"
 import userService from './services/userService'
+import { Button } from "react-bootstrap"
+import Error from "./components/Error"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -33,14 +35,15 @@ const App = () => {
     return <LoginPage />
 
   return (
-    <>
+    <div className="app">
+      <Error/>
       <p>
         Welcome {user.username}! 
-        <button onClick={logout}>log out</button>
+        <Button onClick={logout}>log out</Button>
       </p>
       <TodoForm />
       <ToDoList />
-    </>
+    </div>
   )
 }
 
