@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { addTodo } from "../reducers/todoReducer"
-import Error from "./Error"
 import { Button, Modal, Form } from "react-bootstrap"
 
 const TodoForm = () => {
@@ -23,19 +22,26 @@ const TodoForm = () => {
   const submit = (e) => {
     const form = e.currentTarget
 
-    console.log(form.checkValidity())
+    e.preventDefault()
 
-    if (form.checkValidity() === false) {
-      e.preventDefault()
-      e.stopPropagation()
-    } else {
-      dispatch(addTodo({ title, deadline }))
-      handleClose()
-      resetField()
+    const updateDay = (deadline) => {
+      const date = new Date(deadline)
+      const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      return days[date.getDay()]
     }
 
-    setValidated(true)
+    if (form.checkValidity() === false) {
+      e.stopPropagation()
+      setValidated(true)
+    } else {
+      dispatch(addTodo({ title, deadline: `${deadline} (${updateDay(deadline)})` }))
+      handleClose()
+      resetField()
+      setValidated(false)
+    }
   }
+
+
 
   return (
     <div>

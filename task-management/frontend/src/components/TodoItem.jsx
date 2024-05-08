@@ -2,7 +2,7 @@ import { changeDone, changeFavorite } from "../reducers/todoReducer";
 import { useDispatch } from "react-redux";
 import { ListGroup, Button } from "react-bootstrap";
 import { deleteOne } from "../reducers/todoReducer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const TodoItem = ({ todo }) => {
   const dispatch = useDispatch()
@@ -10,29 +10,31 @@ const TodoItem = ({ todo }) => {
 
   const heart = todo.favorite == 'true'
     ? '❤️'
-    : '🤍'
+    : '🤍'  
 
-  const prop = todo.done == 'true'
-    ? 'the task is done'
-    : null
+  useEffect(() => {
+    if (todo.done == 'true')
+      setClass('checked')
+  }, [])
 
   const handleClick = () => {
     if (todo.done === 'false') {
       setClass('checked')
       setTimeout(() => {
         dispatch(changeDone(todo))
-      }, 2000)
+      }, 1000)
     } else {
-      dispatch(changeDone(todo))
+      setClass('')
+      setTimeout(() => {
+        dispatch(changeDone(todo))
+      }, 1000)
     }
-
   }
 
   return (
       <>
-        <ListGroup.Item className={`todoItem ${additionalClass}`}>
+        <ListGroup.Item className={todo.done === 'false' ? `todoItem ${additionalClass}` : `todoItem ${additionalClass}`}>
           <div onClick={handleClick} className={'todo-info'}>
-            {prop}
             <p>{todo.title}</p>
             <p>deadline: {todo.deadline}</p>
           </div>

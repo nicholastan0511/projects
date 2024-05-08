@@ -9,27 +9,22 @@ const ToDoList = () => {
   if (!todos)
     return <div>fetching...</div>
 
-  const done = todos.filter(todo => todo.done == 'true')
   const undone = todos.filter(todo => todo.done == 'false')
 
   return (
     <div>
-      <div>
-        To do list
-        <ListGroup>
-          {undone.map(todo => 
-            <TodoItem key={todo.id} todo={todo} />
-          )}
-        </ListGroup>
-      </div>
-      <div>
-        Finished Tasks
-        <ListGroup>
-          {done.map(todo =>
-            <TodoItem key={todo.id} todo={todo} />
-          )}
-        </ListGroup>
-      </div>
+        <span className="todolist-title">To do list</span>
+        {undone.length > 1
+          ? (
+            <ListGroup>
+              {undone.map(todo => 
+                <TodoItem key={todo.id} todo={todo} />
+              )}
+            </ListGroup>
+          )
+          : <div>No tasks as of current!</div>
+        }
+       
     </div>
   )  
 }

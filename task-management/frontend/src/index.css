@@ -1,5 +1,5 @@
 * {
-  font-family: 'Courier New', Courier, monospace;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -7,11 +7,19 @@
 
 .app {
   display: flex;
-  align-items: center;
   justify-content: center;
   width: 100%;
   min-height: 100vh;
   background-color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  overflow: auto;
+  align-self: center;
 }
 
 .loginPage {
@@ -37,6 +45,14 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.todolist-title {
+  font-weight: 800;
+  font-size: 25px;
+  margin-bottom: 20px;
+  display: block;
+  text-transform: uppercase;
 }
 
 .todoItem {

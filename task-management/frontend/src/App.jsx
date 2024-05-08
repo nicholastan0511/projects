@@ -7,7 +7,8 @@ import LoginPage from './components/LoginPage'
 import { setUser } from "./reducers/userReducer"
 import todoService from "./services/todoService"
 import userService from './services/userService'
-import { Button } from "react-bootstrap"
+import Favorites from "./components/Favorites"
+import Finished from "./components/Finished"
 import Error from "./components/Error"
 import { setError } from "./reducers/erorrReducer"
 import Sidebar from "./components/Sidebar"
@@ -47,13 +48,12 @@ const App = () => {
         <Sidebar />
         <Error/>
         <div className="container">
-          <TodoForm />
-
           <Routes>
             <Route path="/" element={<ToDoList />} />
-            <Route path="/favorites" element={<ToDoList />} />
-            <Route path="/finished" element={<ToDoList />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/finished" element={<Finished />} />
           </Routes>
+          <TodoForm />
         </div>
       </div>
     </Router>

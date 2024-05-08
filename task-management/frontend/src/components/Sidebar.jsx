@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux"
-import { Button } from "react-bootstrap"
 import { useDispatch } from "react-redux"
 import { logout } from "../reducers/userReducer"
 import { Link } from "react-router-dom"
