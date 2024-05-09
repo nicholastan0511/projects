@@ -18,13 +18,14 @@ userRouter.get('/:id', async (req, res, next) => {
 })
 
 userRouter.post('/', async (req, res, next) => {
-  const { username, password } = req.body
+  const { username, password, email } = req.body
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
 
   const user = new User({
     username,
-    passwordHash
+    passwordHash,
+    email
   })
 
   try {

@@ -13,6 +13,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     minLength: 3
   },
+  email: {
+    type: String,
+    required: false,
+    minLength: 3
+  },
   todos: [
     {
       type: mongoose.Schema.Types.ObjectId,
