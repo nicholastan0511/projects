@@ -20,6 +20,8 @@ mongoose.connect(url)
     console.log('error connecting to MongoDB')
   })
 
+app.use(express.static('dist'))
+
 app.use(express.json())
 app.use(cors())
 app.use(middleware.tokenExtractor)
