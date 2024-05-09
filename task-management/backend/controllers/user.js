@@ -17,7 +17,7 @@ userRouter.get('/:id', async (req, res, next) => {
   }
 })
 
-userRouter.post('/', async (req, res) => {
+userRouter.post('/', async (req, res, next) => {
   const { username, password } = req.body
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
@@ -27,16 +27,20 @@ userRouter.post('/', async (req, res) => {
     passwordHash
   })
 
-  const savedUser = await user.save()
+  try {
+    const savedUser = await user.save()
 
-  const userForToken = {
-    username: savedUser.username,
-    id: savedUser.id
+    const userForToken = {
+      username: savedUser.username,
+      id: savedUser.id
+    }
+
+    const token = jwt.sign(userForToken, process.env.SECRET)
+
+    res.status(201).json({token, ...userForToken })
+  } catch (err) {
+    next(err)
   }
-
-  const token = jwt.sign(userForToken, process.env.SECRET)
-
-  res.status(201).json({token, ...userForToken })
 })
 
 module.exports = userRouter
