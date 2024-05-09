@@ -9,7 +9,9 @@ import todoService from "./services/todoService"
 import userService from './services/userService'
 import Favorites from "./components/Favorites"
 import Finished from "./components/Finished"
+import RegisterPage from "./components/RegisterPage"
 import Error from "./components/Error"
+import { Navigate } from "react-router-dom"
 import { setError } from "./reducers/erorrReducer"
 import Sidebar from "./components/Sidebar"
 import {
@@ -26,21 +28,24 @@ const App = () => {
     const userJSON = window.localStorage.getItem('loggedUser')
     if (userJSON) {
       const user = JSON.parse(userJSON)
-      dispatch(setUser(user))
-      userService.setUserUrl(user.id)
-      todoService.setToken(user.token)
-    } 
-    dispatch(initTodos())
-    dispatch(setError(''))
-  }, [])
 
-  if (!user.token)
-    return  (
-      <div className="app">
-        <Error/>
-        <LoginPage />
-      </div>
-    )
+      //setUser based on user data on client's localStorage, which was initialized through
+      //either a login attempt or a registration
+      dispatch(setUser(user))
+
+      //setUserUrl so that user can be fetched to retrive its todo data
+      userService.setUserUrl(user.id)
+
+      //setToken so that config can be defined
+      todoService.setToken(user.token)
+
+      //initTodos based on user data that was initialized using setUserUrl
+      dispatch(initTodos())
+
+      //restart error
+      dispatch(setError(''))
+    } 
+  }, [])
 
   return (
     <Router>
@@ -49,9 +54,12 @@ const App = () => {
         <Error/>
         <div className="container">
           <Routes>
-            <Route path="/" element={<ToDoList />} />
+            <Route path="/" element={!user.token ? <Navigate replace to='/login'/> : <ToDoList />} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/finished" element={<Finished />} />
+            <Route path="/register" element={!user.token ? <RegisterPage /> : <Navigate replace to='/'/>}/>
+            <Route path="/login" element={!user.token ? <LoginPage /> : <Navigate replace to='/'/>}/>
+            <Route path="*" element={<Navigate replace to='/' />} />
           </Routes>
           <TodoForm />
         </div>

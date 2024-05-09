@@ -7,6 +7,10 @@ const Sidebar = () => {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
 
+  if (!user.token) {
+    return null
+  }
+
   const signOut = () => {
     dispatch(logout())
     window.localStorage.clear()

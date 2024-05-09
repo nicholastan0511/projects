@@ -2,7 +2,7 @@ import { Form, Button } from "react-bootstrap"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { loginUser } from "../reducers/userReducer"
-import Error from "./Error"
+import { useNavigate } from "react-router-dom"
 
 const LoginPage = () => {
   const [username, setUsername] = useState('')
@@ -10,6 +10,7 @@ const LoginPage = () => {
   const [validated, setValidated] = useState(false)
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const clearField = () => {
     setUsername('')
@@ -58,6 +59,9 @@ const LoginPage = () => {
           </Button>
         </div>
       </Form>
+      <span>Don't have an account? 
+        <Button variant="primary" size='sm' onClick={() => navigate('/register')}>register here!</Button>
+      </span>
     </div>
   ) 
 }

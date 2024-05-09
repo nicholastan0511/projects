@@ -2,6 +2,9 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { addTodo } from "../reducers/todoReducer"
 import { Button, Modal, Form } from "react-bootstrap"
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 
 const TodoForm = () => {
   const [title, setTitle] = useState('')
@@ -9,10 +12,18 @@ const TodoForm = () => {
   const [show, setShow] = useState(false)
   const [validated, setValidated] = useState(false)
 
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  if (!user.token) {
+    return null
+  }
+
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
-  const dispatch = useDispatch()
 
   const resetField = () => {
     setTitle('')
@@ -38,6 +49,8 @@ const TodoForm = () => {
       handleClose()
       resetField()
       setValidated(false)
+      if (location.pathname !== '/')
+        navigate('/')
     }
   }
 
@@ -45,7 +58,7 @@ const TodoForm = () => {
 
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" onClick={handleShow} className="todoform-btn">
         Add Task
       </Button>
 

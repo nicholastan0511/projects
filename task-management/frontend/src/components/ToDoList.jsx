@@ -14,7 +14,7 @@ const ToDoList = () => {
   return (
     <div>
         <span className="todolist-title">To do list</span>
-        {undone.length > 1
+        {undone.length > 0
           ? (
             <ListGroup>
               {undone.map(todo => 

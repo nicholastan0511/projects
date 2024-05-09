@@ -11,6 +11,7 @@
   width: 100%;
   min-height: 100vh;
   background-color: white;
+  gap: 30px;
 }
 
 .container {
@@ -18,12 +19,13 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
-  overflow: auto;
+  /* overflow: auto; */
   align-self: center;
 }
 
 .loginPage {
   display: flex;
+  align-self: center;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -53,6 +55,7 @@
   margin-bottom: 20px;
   display: block;
   text-transform: uppercase;
+  margin-top: 20px;
 }
 
 .todoItem {
@@ -91,7 +94,7 @@
 
 .error {
   position: absolute;
-  top: 10%;
+  top: 1%;
   color: red;
 }
 
@@ -108,7 +111,7 @@
 
 .sidebar {
   width: 256px;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -168,4 +171,8 @@
 .menu ul li:hover .link {
   color:black;
   background-color: #f6f6f6;
+}
+
+.todoform-btn {
+  margin-bottom: 20px;
 }

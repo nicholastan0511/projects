@@ -13,7 +13,6 @@ const fetchAll = async () => {
 }
 
 const addTask = async (obj) => {
-  console.log(token)
 
   const config = {
     headers: { authorization: token }
