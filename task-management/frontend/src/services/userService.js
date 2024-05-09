@@ -1,11 +1,11 @@
 import axios from "axios";
 
-let userUrl = 'http://localhost:3003/api/user/'
+let userUrl = '/api/user/'
 
 const setUserUrl = (id) => {
 
   //only incude chars until the original length of userUrl then append the id
-  userUrl = userUrl.substring(0, 31) + id
+  userUrl = userUrl.substring(0, 10) + id
 }
 
 const fetchUser = async () => {
@@ -14,7 +14,7 @@ const fetchUser = async () => {
 }
 
 const regisUser = async (userCreds) => {
-  const user = await axios.post('http://localhost:3003/api/user', userCreds)
+  const user = await axios.post('/api/user', userCreds)
   return user.data
 }
 

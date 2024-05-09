@@ -6,14 +6,16 @@ const Error = () => {
   const error = useSelector(state => state.error)
   const dispatch = useDispatch()
 
+  if (error == '') 
+    return null
+    
   setTimeout(() => {
     dispatch(setError(''))
   }, 5000)
 
-  if (error)
-    return <Alert className="error" variant="warning">{error}</Alert>
+  return <Alert className="error" variant="warning">{error}</Alert>
+  
 
-  return null
 }
 
 export default Error

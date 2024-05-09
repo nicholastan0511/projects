@@ -176,3 +176,11 @@
 .todoform-btn {
   margin-bottom: 20px;
 }
+
+.account {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}

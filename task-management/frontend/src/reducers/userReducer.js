@@ -38,7 +38,6 @@ export const loginUser = (userCreds) => {
       //setToken for defining config
       todoService.setToken(user.token)
     } catch (err) {
-      console.log(err)
       dispatch(setError('Invalid username or password!'))
     }
   }

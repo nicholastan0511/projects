@@ -59,7 +59,7 @@ const LoginPage = () => {
           </Button>
         </div>
       </Form>
-      <span>Don't have an account? 
+      <span className="account">Don't have an account? 
         <Button variant="primary" size='sm' onClick={() => navigate('/register')}>register here!</Button>
       </span>
     </div>

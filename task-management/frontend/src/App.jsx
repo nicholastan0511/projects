@@ -43,7 +43,7 @@ const App = () => {
       dispatch(initTodos())
 
       //restart error
-      dispatch(setError(''))
+      dispatch(setError([]))
     } 
   }, [])
 
