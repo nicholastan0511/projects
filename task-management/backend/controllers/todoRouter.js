@@ -8,10 +8,14 @@ todoRouter.get('/', async (req, res) => {
   res.json(todos)
 })
 
-todoRouter.get('/:id', async (req, res) => {
-  const todo = await Todo.findById(req.params.id)
-  res.json(todo)
-  mongoose.connection.close()
+todoRouter.get('/:id', async (req, res, next) => {
+  try {
+    const todo = await Todo.findById(req.params.id)
+    res.json(todo)
+    mongoose.connection.close()
+  } catch (err) {
+    next(err)
+  }
 })
 
 todoRouter.post('/', middleware.userExtractor, async (req, res, next) => {
