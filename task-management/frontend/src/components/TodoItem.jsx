@@ -1,12 +1,21 @@
 import { changeDone, changeFavorite } from "../reducers/todoReducer";
 import { useDispatch } from "react-redux";
 import { ListGroup, Button } from "react-bootstrap";
-import { deleteOne } from "../reducers/todoReducer";
+import ModifyTaskModal from "./ModifyTaskModal";
 import { useState, useEffect } from "react";
+import DeleteModal from "./DeleteModal";
 
 const TodoItem = ({ todo }) => {
   const dispatch = useDispatch()
   const [additionalClass, setClass] = useState('')
+  const [show, setShow] = useState(false)
+  const [showModify, setShowModify] = useState(false)
+
+  const handleClose = () => { setShow(false) }
+  const handleShow = () => { setShow(true) }
+
+  const handleCloseModify = () => { setShowModify(false) }
+  const hanldeShowModify = () => { setShowModify(true) }
 
   const heart = todo.favorite == 'true'
     ? '❤️'
@@ -40,7 +49,10 @@ const TodoItem = ({ todo }) => {
           </div>
           <div className="buttonGroup">
             <Button onClick={() => dispatch(changeFavorite(todo))} size="md" variant="info">{heart}</Button>
-            <Button onClick={() => dispatch(deleteOne(todo))} size="md" variant="warning">🗑</Button>
+            <Button onClick={handleShow} size="md" variant="warning">🗑</Button>
+            <Button onClick={hanldeShowModify}>🛠️</Button>
+            <ModifyTaskModal todo={todo} show={showModify} handleClose={handleCloseModify} />
+            <DeleteModal todo={todo} show={show} handleClose={handleClose} />
           </div>
         </ListGroup.Item>
       

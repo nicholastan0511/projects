@@ -71,6 +71,20 @@ todoRouter.put('/:id', middleware.userExtractor, async(req, res) => {
 
     const savedTodo = await todo.save()
     res.status(200).json(savedTodo)
+  } else if (req.body.deadline && req.body.title) {
+    //if the both fields are the same as before
+    if (todo.deadline === req.body.deadline && todo.title === req.body.title)
+      res.status(200).end()
+    else if (todo.deadline !== req.body.deadline && todo.title !== req.body.title) {
+        todo.deadline = req.body.deadline
+        todo.title = req.body.title
+    } else if (todo.deadline !== req.body.deadline)
+      todo.deadline = req.body.deadline
+    else if (todo.title !== req.body.title)
+      todo.title = req.body.title
+
+    const savedTodo = await todo.save()
+    res.status(200).json(savedTodo)
   }
 })
 

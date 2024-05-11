@@ -6,6 +6,12 @@ import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { useLocation } from "react-router-dom"
 
+export const updateDay = (deadline) => {
+  const date = new Date(deadline)
+  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  return days[date.getDay()]
+}
+
 const TodoForm = () => {
   const [title, setTitle] = useState('')
   const [deadline, setDeadline] = useState('')
@@ -35,12 +41,6 @@ const TodoForm = () => {
 
     e.preventDefault()
 
-    const updateDay = (deadline) => {
-      const date = new Date(deadline)
-      const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      return days[date.getDay()]
-    }
-
     if (form.checkValidity() === false) {
       e.stopPropagation()
       setValidated(true)
@@ -49,12 +49,12 @@ const TodoForm = () => {
       handleClose()
       resetField()
       setValidated(false)
+
+      //if user accessed the form through other endpoints
       if (location.pathname !== '/')
         navigate('/')
     }
   }
-
-
 
   return (
     <div>

@@ -11,9 +11,22 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [validated, setValidated] = useState(false)
+  const [isValidEmail, setIsValidEmail] = useState(true)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const validateEmail = (email) => {
+    // Regular expression pattern for validating email addresses
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
+
+  const handleEmailChange = (e) => {
+    const { value } = e.target
+    setEmail(value)
+    setIsValidEmail(validateEmail(value))
+  }
 
   const handleSubmit = (e) => {
     const form = e.currentTarget
@@ -24,8 +37,10 @@ const RegisterPage = () => {
         setValidated(true)
     } else if (password !== confirmPassword) {
         dispatch(setError('Confirmation password does not match!'))
+    } else if (!isValidEmail) {
+        e.stopPropagation()
     } else {
-        dispatch(regisUser({ username, password }))
+        dispatch(regisUser({ username, password, email }))
         navigate('/')
     }
   }
@@ -42,7 +57,7 @@ const RegisterPage = () => {
             onChange={({ target }) => setUsername(target.value) }
             required
             />
-            <Form.Control.Feedback type="invalid">Please insert valid email</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Please insert valid username</Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
             <Form.Label>email:</Form.Label>
@@ -50,10 +65,15 @@ const RegisterPage = () => {
             type="text"
             name="username"
             value={email}
-            onChange={({ target }) => setEmail(target.value) }
+            onChange={handleEmailChange}
             required
+            isInvalid={!isValidEmail}
             />
-            <Form.Control.Feedback type="invalid">Please insert valid username</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              {isValidEmail 
+                ? 'Please insert email'
+                : 'Please use the correct email format'}
+            </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
             <Form.Label>password:</Form.Label>

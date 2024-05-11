@@ -22,7 +22,7 @@ const tokenExtractor = (req, res, next) => {
     req.token = authorization.replace('Bearer ', '')
   } else
     req.token = null
-
+    
   next()
 }
 
@@ -31,6 +31,7 @@ const userExtractor = async (req, res, next) => {
   if (!decodedToken.id) {
     return res.status(401).json({ error: 'token invalid' })
   }
+
 
   req.user = await User.findById(decodedToken.id)
 

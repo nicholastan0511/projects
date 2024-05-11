@@ -29,11 +29,19 @@ const todoSlice = createSlice({
     },
     del: (state, action) => {
       return state.filter(todo => todo.id != action.payload.id)
+    },
+    modify: (state, action) => {
+      state.map(todo => {
+        if (todo.id === action.payload.id) {
+          todo.deadline = action.payload.deadline
+          todo.title = action.payload.title
+        }
+      })
     }
   }
 })
 
-export const { setTodos, appendTodo, alterFavorite, alterDone, del } = todoSlice.actions 
+export const { setTodos, appendTodo, alterFavorite, alterDone, del, modify } = todoSlice.actions 
 
 export const initTodos = () => {
   return async dispatch => {
@@ -71,6 +79,18 @@ export const deleteOne = (obj) => {
   return async dispatch => {
     await todoService.deleteTodo(obj)
     dispatch(del(obj))
+  }
+}
+
+export const modifyTask = (obj) => {
+  return async dispatch => {
+    try {
+      const response = await todoService.modifyTask(obj)
+      console.log(response)
+      dispatch(modify(response))
+    } catch (err) {
+      dispatch(setError('errrr'))
+    }
   }
 }
 

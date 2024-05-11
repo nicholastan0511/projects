@@ -184,3 +184,15 @@
   gap: 10px;
   margin-top: 20px;
 }
+
+.delete-btn-group {
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer {
+  position: absolute;
+  bottom: 10px;
+  font-size: 12px;
+  color: #757575;
+}

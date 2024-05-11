@@ -47,11 +47,23 @@ const deleteTodo = async (obj) => {
   return response.data
 }
 
+const modifyTask = async (obj) => {
+  const config = {
+    headers: { authorization: token }
+  }
+
+  console.log(config)
+
+  const response = await axios.put(`${baseUrl}/${obj.id}`, obj, config)
+  return response.data
+}
+
 export default {
   fetchAll,
   addTask,
   favorite,
   done,
   deleteTodo,
-  setToken
+  setToken,
+  modifyTask
 }

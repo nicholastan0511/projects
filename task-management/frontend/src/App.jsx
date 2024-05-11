@@ -14,6 +14,7 @@ import Error from "./components/Error"
 import { Navigate } from "react-router-dom"
 import { setError } from "./reducers/erorrReducer"
 import Sidebar from "./components/Sidebar"
+import Footer from "./components/Footer"
 import {
   BrowserRouter as Router,
   Routes, Route
@@ -63,6 +64,7 @@ const App = () => {
           </Routes>
           <TodoForm />
         </div>
+        <Footer />
       </div>
     </Router>
   )
