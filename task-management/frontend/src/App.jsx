@@ -48,6 +48,8 @@ const App = () => {
     } 
   }, [])
 
+  console.log(user.token)
+
   return (
     <Router>
       <div className="app">
@@ -56,8 +58,8 @@ const App = () => {
         <div className="container">
           <Routes>
             <Route path="/" element={!user.token ? <Navigate replace to='/login'/> : <ToDoList />} />
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/finished" element={<Finished />} />
+            <Route path="/favorites" element={user.token ? <Favorites /> : <Navigate replace to='/'/>} />
+            <Route path="/finished" element={user.token ? <Finished /> : <Navigate replace to='/'/>} />
             <Route path="/register" element={!user.token ? <RegisterPage /> : <Navigate replace to='/'/>}/>
             <Route path="/login" element={!user.token ? <LoginPage /> : <Navigate replace to='/'/>}/>
             <Route path="*" element={<Navigate replace to='/' />} />

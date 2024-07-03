@@ -4,6 +4,7 @@ import { ListGroup, Button } from "react-bootstrap";
 import ModifyTaskModal from "./ModifyTaskModal";
 import { useState, useEffect } from "react";
 import DeleteModal from "./DeleteModal";
+import Timer from "./Timer";
 
 const TodoItem = ({ todo }) => {
   const dispatch = useDispatch()
@@ -45,7 +46,8 @@ const TodoItem = ({ todo }) => {
         <ListGroup.Item className={todo.done === 'false' ? `todoItem ${additionalClass}` : `todoItem ${additionalClass}`}>
           <div onClick={handleClick} className={'todo-info'}>
             <p>{todo.title}</p>
-            <p>deadline: {todo.deadline}</p>
+            <p>Deadline: <span className="deadline">{todo.deadline}</span></p>
+            <Timer deadlineWithDay={todo.deadline} done={todo.done} />
           </div>
           <div className="buttonGroup">
             <Button onClick={() => dispatch(changeFavorite(todo))} size="md" variant="info">{heart}</Button>

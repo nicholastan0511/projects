@@ -10,7 +10,7 @@
   justify-content: center;
   width: 100%;
   min-height: 100vh;
-  background-color: white;
+  background: linear-gradient(to right, #FF1053, #F7ACCF);
   gap: 30px;
 }
 
@@ -31,7 +31,7 @@
   align-items: center;
   gap: 10px;
   padding: 50px;
-  background-color: beige;
+  background-color: white;
   border-radius: 10px;
   border-color:blanchedalmond;
   border-style: solid;
@@ -56,6 +56,8 @@
   display: block;
   text-transform: uppercase;
   margin-top: 20px;
+  border-bottom: 0.5px #555555 solid;
+  padding-bottom: 10px;
 }
 
 .todoItem {
@@ -115,7 +117,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ivory;
+  background-color: #f5f5f5;
   padding: 24px;
   border-radius: 30px;
 }
@@ -170,7 +172,7 @@
 
 .menu ul li:hover .link {
   color:black;
-  background-color: #f6f6f6;
+  background-color: lightgrey;
 }
 
 .todoform-btn {
@@ -194,5 +196,15 @@
   position: absolute;
   bottom: 10px;
   font-size: 12px;
-  color: #757575;
+  color: ivory;
+  font-weight: 100;
+}
+
+.timer {
+  color: red;
+}
+
+.deadline {
+  color:#555555;
+  font-weight: 100;
 }

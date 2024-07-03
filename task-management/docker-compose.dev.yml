@@ -1,0 +1,32 @@
+services:
+  task-backend-dev:
+    image: task-backend-dev
+    build: 
+      context: ./backend
+      dockerfile: ./backend/dev.Dockerfile
+    volumes:
+      - ./backend/.:/usr/src/app
+    environment:
+      - MONGODB_URI=mongodb+srv://nicholastan0511:bob@task-management.qvr8eyx.mongodb.net/?retryWrites=true&w=majority&appName=task-management
+      - SECRET=bababoi
+
+  task-front-dev:
+    image: task-front-dev
+    build:
+      context: ./frontend
+      dockerfile: ./frontend/dev.Dockerfile
+    volumes:
+      - ./frontend/.:/usr/src/app
+    environment:
+      - BACKEND_URL=http://localhost:8080
+
+  task-reverse-proxy:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: task-reverse-proxy
+    depends_on:
+      - task-front-dev
+      - task-backend-dev
