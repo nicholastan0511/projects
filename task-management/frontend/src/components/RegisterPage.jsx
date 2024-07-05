@@ -46,10 +46,13 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="loginPage regisPage">
-      <Form onSubmit={handleSubmit} className="loginForm" validated={validated} noValidate>
+    <div className="regisPage">
+      <div className="welcome-regisPage">
+        <h1>Register</h1>
+      </div>
+      <Form onSubmit={handleSubmit} validated={validated} noValidate className="regisForm">
         <Form.Group>
-            <Form.Label>username:</Form.Label>
+            <Form.Label>username</Form.Label>
             <Form.Control
             type="text"
             name="username"
@@ -60,7 +63,7 @@ const RegisterPage = () => {
             <Form.Control.Feedback type="invalid">Please insert valid username</Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
-            <Form.Label>email:</Form.Label>
+            <Form.Label>email</Form.Label>
             <Form.Control
             type="text"
             name="username"
@@ -76,7 +79,7 @@ const RegisterPage = () => {
             </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
-            <Form.Label>password:</Form.Label>
+            <Form.Label>password</Form.Label>
             <Form.Control
             type="password"
             value={password}
@@ -86,7 +89,7 @@ const RegisterPage = () => {
             <Form.Control.Feedback type="invalid">Please insert password</Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
-            <Form.Label>confirm password:</Form.Label>
+            <Form.Label>confirm password</Form.Label>
             <Form.Control
             type="password"
             value={confirmPassword}
@@ -96,7 +99,7 @@ const RegisterPage = () => {
             <Form.Control.Feedback type="invalid">Please confirm your password</Form.Control.Feedback>
         </Form.Group>
         <div>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className="btn-loginpage">
             register
           </Button>
         </div>

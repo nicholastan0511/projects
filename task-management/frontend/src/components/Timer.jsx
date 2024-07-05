@@ -30,7 +30,7 @@ const Timer = ({ deadlineWithDay, done }) => {
 
   if (done === 'true')
     return null
-  else if (timer.seconds < 1) 
+  else if (timer.seconds < 0) 
     return <div>The deadline has past!</div>
 
   return (

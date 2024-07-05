@@ -12,10 +12,10 @@ const LoginPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const clearField = () => {
-    setUsername('')
-    setPassword('')
-  }
+  // const clearField = () => {
+  //   setUsername('')
+  //   setPassword('')
+  // }
 
   const onSubmit = async (e) => { 
     const form = e.currentTarget
@@ -31,36 +31,42 @@ const LoginPage = () => {
 
   return (
     <div className="loginPage">
+      <div className="welcome-loginpage">
+        <h1>Login</h1>
+        <p>Welcome aboard! 🏄</p>
+      </div>
       <Form onSubmit={onSubmit} className="loginForm" validated={validated} noValidate>
         <Form.Group>
-            <Form.Label>username:</Form.Label>
+            <Form.Label className="form-login-label" >USERNAME</Form.Label>
             <Form.Control
             type="text"
             name="username"
             value={username}
+            placeholder="Bob"
             onChange={({ target }) => setUsername(target.value) }
             required
             />
             <Form.Control.Feedback type="invalid">Please insert valid username</Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
-            <Form.Label>password:</Form.Label>
+            <Form.Label className="form-login-label">PASSWORD</Form.Label>
             <Form.Control
             type="password"
             value={password}
             onChange={({ target }) => setPassword(target.value)}
+            placeholder="Ross"
             required
             />
             <Form.Control.Feedback type="invalid">Please insert password</Form.Control.Feedback>
         </Form.Group>
         <div>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className="btn-loginpage">
             login
           </Button>
         </div>
       </Form>
       <span className="account">Don't have an account? 
-        <Button variant="primary" size='sm' onClick={() => navigate('/register')}>register here!</Button>
+        <Button variant="primary" size='sm' onClick={() => navigate('/register')} className="btn-loginpage">register here!</Button>
       </span>
     </div>
   ) 

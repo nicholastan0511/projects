@@ -7,6 +7,7 @@ import errorSlice from './reducers/erorrReducer.js'
 import userSlice from './reducers/userReducer.js'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 const store = configureStore({
   reducer: {
@@ -16,9 +17,10 @@ const store = configureStore({
   }
 })
 
-
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>
 )

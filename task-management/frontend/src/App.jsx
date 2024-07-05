@@ -10,17 +10,20 @@ import userService from './services/userService'
 import Favorites from "./components/Favorites"
 import Finished from "./components/Finished"
 import RegisterPage from "./components/RegisterPage"
+import PomodoroPage from "./components/Pomodoro"
 import Error from "./components/Error"
-import { Navigate } from "react-router-dom"
 import { setError } from "./reducers/erorrReducer"
 import Sidebar from "./components/Sidebar"
 import Footer from "./components/Footer"
 import {
-  BrowserRouter as Router,
-  Routes, Route
+  Routes, 
+  Route,
+  useLocation,
+  Navigate
 } from 'react-router-dom'
 
 const App = () => {
+  const location = useLocation()
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
 
@@ -49,9 +52,9 @@ const App = () => {
   }, [])
 
   console.log(user.token)
+  console.log(location.pathname)
 
   return (
-    <Router>
       <div className="app">
         <Sidebar />
         <Error/>
@@ -63,12 +66,12 @@ const App = () => {
             <Route path="/register" element={!user.token ? <RegisterPage /> : <Navigate replace to='/'/>}/>
             <Route path="/login" element={!user.token ? <LoginPage /> : <Navigate replace to='/'/>}/>
             <Route path="*" element={<Navigate replace to='/' />} />
+            <Route path="/pomodoro" element={<PomodoroPage />} />
           </Routes>
-          <TodoForm />
+          {location.pathname !== '/pomodoro' ? <TodoForm /> : null}
         </div>
         <Footer />
       </div>
-    </Router>
   )
 }
 
