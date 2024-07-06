@@ -19,6 +19,10 @@ const todoSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  pomodoro: {
+    type: Number,
+    required: false
+  }, 
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

@@ -1,0 +1,7 @@
+PUT http://localhost:5173/api/todos/6687aaee5b230dadd0f311fa
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJyb3NraSIsImlkIjoiNjY4N2E4YTE1YjIzMGRhZGQwZjMxMWVkIiwiaWF0IjoxNzIwMjUxNDIxfQ.9W3lmjwBYo_Gm2y-ttjS-Cf2zeJ6Mz4htpZoUKLgiEM
+
+{
+  "done": "true"
+}

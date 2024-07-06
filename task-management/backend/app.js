@@ -7,6 +7,7 @@ const todoRouter = require('./controllers/todoRouter')
 const loginRouter = require('./controllers/login')
 const userRouter = require('./controllers/user')
 const middleware = require('./utils/middleware')
+const path = require('path')
 const url = process.env.MONGODB_URI
 
 console.log(url)
@@ -21,6 +22,10 @@ mongoose.connect(url)
   })
 
 app.use(express.static('dist'))
+// Handle all other requests by serving the index.html from 'dist'
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 app.use(express.json())
 app.use(cors())

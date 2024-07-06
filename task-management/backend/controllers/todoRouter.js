@@ -46,45 +46,67 @@ todoRouter.post('/', middleware.userExtractor, async (req, res, next) => {
   }
 })
 
-todoRouter.put('/:id', middleware.userExtractor, async(req, res) => {
-  const todo = await Todo.findById(req.params.id)
+todoRouter.put('/:id', middleware.tokenExtractor, middleware.userExtractor, async(req, res) => {
+  try {
+    const todo = await Todo.findById(req.params.id);
 
-  if (!req.user.id.toString() === todo.user.id.toString())
-    return res.status(401).json({ error: 'invalid user' })
+    // check if todo exists
+    if (!todo) {
+      return res.status(404).json({ error: 'Todo not found' });
+    }
 
-  //check if the request is to alter favorite
-  if (req.body.favorite) {
-    if (todo.favorite == 'true')
-      todo.favorite = 'false'
-    else 
-      todo.favorite = 'true'
-    
+    console.log(req.user.id.toString())
+    console.log(todo.user.toString())
 
-    const savedTodo = await todo.save()
-    res.status(200).json(savedTodo)
-  //check if the request is to alter done
-  } else if (req.body.done) {
-    if (todo.done == 'true') 
-      todo.done = 'false'
-    else 
-      todo.done = 'true'
+    // check if the client is the user that registers the said todo
+    if (req.user.id.toString() !== todo.user.toString()) {
+      return res.status(401).json({ error: 'invalid user' });
+    }
 
-    const savedTodo = await todo.save()
-    res.status(200).json(savedTodo)
-  } else if (req.body.deadline && req.body.title) {
-    //if the both fields are the same as before
-    if (todo.deadline === req.body.deadline && todo.title === req.body.title)
-      res.status(200).end()
-    else if (todo.deadline !== req.body.deadline && todo.title !== req.body.title) {
-        todo.deadline = req.body.deadline
-        todo.title = req.body.title
-    } else if (todo.deadline !== req.body.deadline)
-      todo.deadline = req.body.deadline
-    else if (todo.title !== req.body.title)
-      todo.title = req.body.title
 
-    const savedTodo = await todo.save()
-    res.status(200).json(savedTodo)
+    let updated = false;
+
+    if ('favorite' in req.body) {
+      todo.favorite = todo.favorite === 'true' ? 'false' : 'true';
+      updated = true;
+    }
+
+    if ('done' in req.body) {
+      todo.done = todo.done === 'true' ? 'false' : 'true';
+      updated = true;
+    }
+
+    if ('deadline' in req.body) {
+      if (todo.deadline !== req.body.deadline) {
+        todo.deadline = req.body.deadline;
+        updated = true;
+      }
+    }
+
+    if ('title' in req.body) {
+      if (todo.title !== req.body.title) {
+        todo.title = req.body.title;
+        updated = true;
+      }
+    }
+
+    if ('pomodoro' in req.body) {
+      console.log(req.body.pomodoro)
+
+      todo.pomodoro = req.body.pomodoro;
+      updated = true;
+    }
+
+    if (updated) {
+      const savedTodo = await todo.save();
+      return res.status(200).json(savedTodo);
+    } else {
+      console.log('sup bitch')
+
+      return res.status(200).end();
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
 })
 
