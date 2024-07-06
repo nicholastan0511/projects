@@ -4,6 +4,7 @@ import { useState } from "react"
 import { regisUser } from "../reducers/userReducer"
 import { setError } from "../reducers/erorrReducer"
 import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const RegisterPage = () => {
   const [username, setUsername] = useState('')
@@ -104,6 +105,9 @@ const RegisterPage = () => {
           </Button>
         </div>
       </Form>
+      <div className="login-reference-regisPage">
+        <p>Already have an account? <Link to='/login'>Login here!</Link></p>
+      </div>
     </div>
   )
 }

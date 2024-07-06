@@ -37,11 +37,22 @@ const todoSlice = createSlice({
           todo.title = action.payload.title
         }
       })
+    },
+    addPomodoro: (state, action) => {
+      state.map(todo => {
+        if (todo.id === action.payload.id) {
+          if (todo.pomodoro) {
+            todo.pomodoro = action.payload.pomodoro
+          } else {
+            todo.pomodoro = 1
+          }
+        }
+      })
     }
   }
 })
 
-export const { setTodos, appendTodo, alterFavorite, alterDone, del, modify } = todoSlice.actions 
+export const { setTodos, appendTodo, alterFavorite, alterDone, del, modify, addPomodoro } = todoSlice.actions 
 
 export const initTodos = () => {
   return async dispatch => {
@@ -90,6 +101,18 @@ export const modifyTask = (obj) => {
       dispatch(modify(response))
     } catch (err) {
       dispatch(setError('errrr'))
+    }
+  }
+}
+
+export const addPomodoroCount = (obj) => {
+  return async dispatch => {
+    try {
+      const response = await todoService.pomodoro(obj)
+      dispatch(addPomodoro(obj))
+      console.log(response)
+    } catch (err) {
+      dispatch(setError(err.message))
     }
   }
 }

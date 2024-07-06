@@ -255,7 +255,69 @@
   width: 300px;
 }
 
+.pomoPage {
+  display: flex;
+  flex-direction: column;
+}
+
+.pomoContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(186, 73, 73);
+  padding: 50px;
+  border-radius: 30px;
+  gap: 20px
+}
+
+.pomoSmallContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
 .pomoPic {
-  height: 100px;
-  width: 100px
+  height: 200px;
+  width: 200px
+}
+
+.del-modal {
+  color: red;
+}
+
+.quote-pomodoro {
+  font-style: italic;
+  font-size: 15px;
+  color:#555555
+}
+
+.pomo-btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.pomo-btn-group Button {
+  font-size: 30px;
+}
+
+.menu-pomo {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.menu-pomo button {
+  width: 200px;
+  padding: 10px;
+  border-style: none;
+  font-size: 20px;
+  border-radius: 10px;
+  transition-duration: 300ms;
+  color: white;
+  background-color: rgb(186, 73, 73);
+}
+
+.clock-pomo {
+  font-size: 100px;
+  color: white;
 }

@@ -13,7 +13,7 @@ const DeleteModal = ({ todo, show, handleClose }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Confirm to delete task '{todo.title}'.</Modal.Title>  
+        <Modal.Title className="del-modal">Confirm to delete task '{todo.title}'</Modal.Title>  
       </Modal.Header> 
       <Modal.Body className="delete-btn-group">
         <Button onClick={handleYes} variant="primary">Yes</Button>  

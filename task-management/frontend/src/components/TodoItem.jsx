@@ -47,6 +47,7 @@ const TodoItem = ({ todo }) => {
           <div onClick={handleClick} className={'todo-info'}>
             <p>{todo.title}</p>
             <p>Deadline: <span className="deadline">{todo.deadline}</span></p>
+            <p>{ todo.pomodoro ? `You have done ${todo.pomodoro} pomodoro session(s) on this task!` : null }</p>
             <Timer deadlineWithDay={todo.deadline} done={todo.done} />
           </div>
           <div className="buttonGroup">

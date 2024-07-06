@@ -54,6 +54,14 @@ const Sidebar = () => {
               </span>
             </Link>
           </li>
+          <li>
+            <Link to='pomodoro' className="link">
+              <i className="gg-sand-clock"></i>
+              <span>
+                Pomodoro
+              </span>
+            </Link>
+          </li>
         </ul>
       </div>
     </div>

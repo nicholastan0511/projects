@@ -38,6 +38,15 @@ const done = async (obj) => {
   return response.data
 }
 
+const pomodoro = async (obj) => {
+  const config = {
+    headers: { authorization: token }
+  }
+
+  const response = await axios.put(`${baseUrl}/${obj.id}`, { pomodoro: obj.pomodoro }, config)
+  return response.data
+}
+
 const deleteTodo = async (obj) => {
   const config = {
     headers: { authorization: token }
@@ -65,5 +74,7 @@ export default {
   done,
   deleteTodo,
   setToken,
-  modifyTask
+  modifyTask,
+  pomodoro
+
 }
