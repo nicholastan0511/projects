@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { addPomodoroCount } from '../../reducers/todoReducer';
 import { useDispatch } from 'react-redux';
 import audio from '../../assets/morning_flower.mp3'
+import quoteService from '../../services/quoteService'
 
 const btnStyle = { 
   backgroundColor: '#555555',
@@ -45,6 +46,19 @@ const PomodoroPage   = () => {
   const [start, setStart] = useState(false)
   const [selected, setSelected] = useState(null)
   const [menu, setMenu] = useState({ title: 'POMODORO', countdown: 25*60 })
+  const [quote, setQuote] = useState(null)
+
+  const getRandomQuote = async () => {
+    const randomQuote = await quoteService.fetchRandomQuote()
+    setQuote(randomQuote)
+  }
+
+  useEffect(() => {
+    getRandomQuote()
+    const quoteInterval = setInterval(getRandomQuote, 15000)
+
+    return () => clearInterval(quoteInterval);
+  }, [])
 
   const dispatch = useDispatch()
 
@@ -152,6 +166,9 @@ const PomodoroPage   = () => {
             </Dropdown.Menu>
           </Dropdown>
         </div>
+      </div>
+      <div className='random-quote'>
+        <p>{ quote ? `"${quote[0].content}" - ${quote[0].author}` : null }</p>
       </div>
     </div>
   )

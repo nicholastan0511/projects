@@ -70,7 +70,7 @@ const App = () => {
           </Routes>
           {location.pathname !== '/pomodoro' ? <TodoForm /> : null}
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
   )
 }
