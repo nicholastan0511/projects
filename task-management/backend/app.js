@@ -32,12 +32,14 @@ app.use('/api/users', userRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/todos', todoRouter)
 
-app.use(middleware.unknownEndpoint)
-app.use(middleware.errorHandler)
-
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
+
+
+app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
+
 
 
 module.exports = app
