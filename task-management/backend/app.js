@@ -23,19 +23,21 @@ mongoose.connect(url)
 
 app.use(express.static('dist'))
 // Handle all other requests by serving the index.html from 'dist'
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
 
 app.use(express.json())
 app.use(cors())
 app.use(middleware.tokenExtractor)
 
-app.use('/api/user', userRouter)
+app.use('/api/users', userRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/todos', todoRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
 
 module.exports = app
