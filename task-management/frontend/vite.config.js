@@ -10,7 +10,11 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:3001',
         changeOrigin: true,
-      }
+      },
+      // '/quotes': {
+      //   target: 'https://api.quotable.io',
+      //   changeOrigin: true
+      // }
     }
   }
 })

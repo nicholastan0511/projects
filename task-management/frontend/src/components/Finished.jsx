@@ -13,14 +13,14 @@ const Finished = () => {
 
     return (
         <div className="finished">
-            <span className="todolist-title">Finished tasks</span>
+            <span className="todolist-title">Finished tasks ✅</span>
             {finished.length > 0 
                 ? (
-                    <ListGroup>
+                    <div className="tdl-container">
                         {finished.map(todo => 
                             <TodoItem key={todo.id} todo={todo} />
                         )}
-                    </ListGroup> 
+                    </div> 
                   )
                 : <div>You have things to get done!</div>
             }

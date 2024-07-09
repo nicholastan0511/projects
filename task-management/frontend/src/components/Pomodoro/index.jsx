@@ -6,6 +6,7 @@ import { addPomodoroCount } from '../../reducers/todoReducer';
 import { useDispatch } from 'react-redux';
 import audio from '../../assets/morning_flower.mp3'
 import quoteService from '../../services/quoteService'
+import TodoForm from '../TodoForm';
 
 const btnStyle = { 
   backgroundColor: '#555555',
@@ -22,7 +23,7 @@ const longBreakStyle = {
 
 const notifyUser = () => {
   const alarmSound = new Audio(audio);
-  console.log(alarmSound)
+  // console.log(alarmSound)
   alarmSound.play();
 
   // Check if the browser supports notifications
@@ -64,6 +65,8 @@ const PomodoroPage   = () => {
 
   const todos = useSelector(state => state.todos)
   const undone = todos.filter(todo => todo.done === 'false')
+
+  // console.log(undone)
 
   useEffect(() => {
     // Function to update the countdown display
@@ -152,19 +155,24 @@ const PomodoroPage   = () => {
           </div>
           <p className='clock-pomo'>{minutes < 10 ? `0${minutes}` : !minutes ? '00' : minutes } : {seconds < 10 ? `0${seconds}` : !seconds ? '00' : seconds }</p>
           <div className='pomo-btn-group'>
-            <Button variant='primary' onClick={ start ? pauseCountdown : startCountdown }>{ start ? 'Pause' : 'Start' }</Button>
+            <Button variant='primary' onClick={ start ? pauseCountdown : startCountdown }>{ start ? 'Pause' : 'START' }</Button>
             <Button variant='secondary' onClick={() => restartCountdown(menu.countdown)}>RESTART</Button>
           </div>
-          <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-              {selected ? selected.title : 'Select a task' }
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {undone.map(todo => {
-                return <Dropdown.Item key={todo.id} onClick={ () => handleSelect(todo) }>{todo.title}</Dropdown.Item>
-              })}
-            </Dropdown.Menu>
-          </Dropdown>
+          { undone.length === 0 ?
+            <TodoForm />
+            : 
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                { selected ? selected.title : 'Select a task' }
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {undone.map(todo => {
+                  return <Dropdown.Item key={todo.id} onClick={ () => handleSelect(todo) }>{todo.title}</Dropdown.Item>
+                })}
+              </Dropdown.Menu>
+            </Dropdown>
+          }
+
         </div>
       </div>
       <div className='random-quote'>

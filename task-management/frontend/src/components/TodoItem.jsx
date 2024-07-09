@@ -23,9 +23,11 @@ const TodoItem = ({ todo }) => {
     : '🤍'  
 
   useEffect(() => {
-    if (todo.done == 'true')
+    if (todo.done === 'true' && additionalClass !== 'checked')
       setClass('checked')
-  }, [])
+    else if (todo.done === 'false' && additionalClass === 'checked') 
+      setClass('')
+  }, [todo.done])
 
   const handleClick = () => {
     if (todo.done === 'false') {
@@ -41,10 +43,14 @@ const TodoItem = ({ todo }) => {
     }
   }
 
+  const handleDragStart = (e, todo) => {
+    e.dataTransfer.setData("todo", JSON.stringify(todo))
+  } 
+
   return (
       <>
-        <ListGroup.Item className={todo.done === 'false' ? `todoItem ${additionalClass}` : `todoItem ${additionalClass}`}>
-          <div onClick={handleClick} className={'todo-info'}>
+        <div className={`todoItem ${additionalClass}`} draggable onDragStart={ (e) => { handleDragStart(e, todo) } }>
+          <div onClick={handleClick} className='todo-info'>
             <p>{todo.title}</p>
             <p>Deadline: <span className="deadline">{todo.deadline}</span></p>
             <p>{ todo.pomodoro ? `You have done ${todo.pomodoro} pomodoro session(s) on this task!` : null }</p>
@@ -57,8 +63,7 @@ const TodoItem = ({ todo }) => {
             <ModifyTaskModal todo={todo} show={showModify} handleClose={handleCloseModify} />
             <DeleteModal todo={todo} show={show} handleClose={handleClose} />
           </div>
-        </ListGroup.Item>
-      
+        </div>
       </>
     )
 }

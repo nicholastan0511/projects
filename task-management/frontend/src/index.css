@@ -1,14 +1,39 @@
 * {
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+p {
+  margin: 0;
+}
+
+span {
+  display: block;
+}
+
+body {
+  min-height: 100vh;
+}
+
+body::-webkit-scrollbar {
+  width: 15px;
+}
+
+body::-webkit-scrollbar-track {
+  background: black;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #0d6efd;
+
+}
+
 .app {
   display: flex;
   justify-content: center;
-  width: 100%;
+  /* min-width: 100vw; */
   min-height: 100vh;
   background: linear-gradient(0deg,#FFDEE9, #B5FFFC);
   gap: 30px;
@@ -30,10 +55,49 @@
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  /* background-color: white; */
-  border-radius: 40px;
   transition-duration: 300ms;
-  /* box-shadow: 1px 1px 6px 3px; */
+}
+
+.regisPage {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-self: center;
+}
+
+.welcome-loginpage {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: calc(100% + 120px); 
+  margin-bottom: 10px;
+  background-color: #0d6efd;
+  margin-top: -60px;
+  color: white;
+  padding: 40px 60px 20px 60px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.welcome-regisPage {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: calc(100% + 120px); 
+  margin-left: -60px;
+  margin-top: -60px;
+  padding: 30px 60px 20px 60px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #0d6efd;
+  color: white;
+}
+
+.regisPage, .loginPage {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.35);
+  background-color: white;
+  padding: 60px;
+  border-radius: 20px;
 }
 
 /* .loginPage:hover {
@@ -47,7 +111,22 @@
   gap: 40px;
   width: 300px;
   height: 300px;
-  border-bottom: 2px #555555 solid;
+  /* border-bottom: 1px grey solid; */
+}
+
+.linebreak {  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  color: #555555;
+  font-size: 12px;
+}
+
+.linebreak span {
+  display: block;
+  border-bottom: 1px grey solid;
+  width: 132px;
 }
 
 .todolist-title {
@@ -61,16 +140,10 @@
   padding-bottom: 10px;
 }
 
-.todoItem {
+.todo-info {
   display: flex;
-  gap: 10px;
-  justify-content: space-between;
-  transition-duration: 300ms;
-}
-
-.todoItem:hover {
-  background-color: #eeeeee;
-  color: #555555;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .todo-info:hover {
@@ -80,13 +153,19 @@
 .checked {
   text-decoration: line-through;
   color: #555555;
-  background-color: #eeeeee;
 }
 
 .buttonGroup {
   display: flex;
   align-items: center;
+  justify-content: space-around;
+  width: 100%;
   gap: 10px;
+}
+
+.buttonGroup Button {
+  width: 150px;
+  height: 50px;
 }
 
 .todoForm {
@@ -113,20 +192,52 @@
 }
 
 .sidebar {
-  width: 256px;
+  width: 100px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f5f5f5;
   padding: 24px;
+  justify-content: space-between;
+  transition: width 200ms ease;
+  gap: 50px;
+}
+
+.tab-icon {
+  font-size: 25px;
+  height: 100%
+}
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.sidebar:hover {
+  width: 256px;
+}
+
+.sidebar:hover .title,  
+.sidebar:hover .tab-name, 
+.sidebar:hover .name, 
+.sidebar:hover .username {
+  display: block;
+}
+
+.title, .tab-name, .name, .username {
+  display: none;
+}
+
+.head, .menu {
+  width: 100%;
 }
 
 .user-details {
   display: flex;
-  gap: 10px;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .user-details .name {
@@ -134,6 +245,10 @@
   font-weight: 800;
   padding-bottom: 10px;
 
+}
+
+.menu {
+  flex-grow: 1;
 }
 
 .menu .title {
@@ -160,7 +275,7 @@
   display: flex;
   gap: 20px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   font-weight: 500;
   color: #757575;
   padding: 18px 15px;
@@ -172,13 +287,22 @@
 
 
 
-.menu ul li:hover .link {
+.menu ul li:hover .link, .activeTab {
   color:black;
   background-color: lightgrey;
 }
 
 .todoform-btn {
+  margin-top: 20px;
   margin-bottom: 20px;
+  width: 200px;
+  font-size: 25px;
+  background-color: green;
+  border: none;
+  border-radius: 10px;
+  padding: 7px;
+  color: white;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.35);
 }
 
 .account {
@@ -195,11 +319,10 @@
 }
 
 .footer {
-  position: absolute;
-  bottom: 10px;
-  font-size: 8px;
+  font-size: 14px;
   color: grey;
   font-weight: 100;
+  flex-shrink: 0;
 }
 
 .timer {
@@ -213,28 +336,13 @@
 
 .form-login-label {
   color: #555555;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .btn-loginpage {
   font-size: 15px;
   text-transform:uppercase;
-}
-
-.welcome-loginpage {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
   width: 100%;
-  border-bottom: 2px solid #555555;
-  margin-bottom: 10px;
-}
-
-.regisPage {
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  align-self: center;
 }
 
 .regisForm {
@@ -242,22 +350,21 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   color: #555555;
   width: 100%;
 }
 
-.welcome-regisPage {
+.login-reference-regisPage {
   display: flex;
-  flex-direction: column;
-  align-items: start;
-  border-bottom: 2px solid #555555;
-  width: 300px;
+  justify-content: center;
 }
+
 
 .pomoPage {
   display: flex;
   flex-direction: column;
+  gap:20px;
 }
 
 .pomoContainer {
@@ -329,3 +436,76 @@
   margin-top: 30px;
   font-style: italic;
 }
+
+.tdl-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  grid-auto-rows: 380px;
+  gap: 50px;
+}
+
+.todoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: space-between;
+  transition-duration: 300ms;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.35);
+  padding: 40px;
+  font-size: 20px;
+  border-radius: 20px;
+  /* height: 380px; */
+  width: 380px;
+  overflow: hidden;
+  background-color: white;
+}
+
+.todoItem:hover {
+  background-color: #eeeeee;
+  color: #555555;
+  scale: 1.02;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #000000e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-modal {
+  width: clamp(50%, 700px, 90%);
+  height: min(50%, 350px);
+
+  margin: auto;
+  padding: 0 2rem;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(0deg,#FFDEE9, #B5FFFC);
+}
+
+.modal-body {
+  padding: 80px;
+}
+
+@media (max-width: 422px) {
+  .loginPage {
+    min-width: 90%;
+  }
+}
+
+@media (max-width: 690px) {
+  .sidebar {
+    display: none;
+  }
+}
+

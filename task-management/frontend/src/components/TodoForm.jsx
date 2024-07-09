@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { addTodo } from "../reducers/todoReducer"
-import { Button, Modal, Form } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { useLocation } from "react-router-dom"
+import { motion, AnimatePresence } from "framer-motion"
+import TodoModal from './TodoModal'
 
 export const updateDay = (deadline) => {
   const date = new Date(deadline)
@@ -51,17 +52,33 @@ const TodoForm = () => {
       setValidated(false)
 
       //if user accessed the form through other endpoints
-      if (location.pathname !== '/')
+      if (location.pathname !== '/' && location.pathname !== '/pomodoro')
         navigate('/')
     }
   }
 
+
   return (
     <div>
-      <Button variant="primary" onClick={handleShow} className="todoform-btn">
-        Add Task
-      </Button>
+      <motion.button
+        onClick={() => show ? handleClose() : handleShow()} 
+        className="todoform-btn"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.9 }}
 
+      >
+        Add Task
+      </motion.button>
+
+      <AnimatePresence
+        initial={false}
+        mode='wait'
+        onExitComplete={() => null}
+      >
+        {show && <TodoModal show={show} handleClose={handleClose} deadline={deadline} title={title} setTitle={setTitle} setDeadline={setDeadline} submit={submit} validated={validated} />}
+      </AnimatePresence>
+
+{/* 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add a task</Modal.Title>
@@ -87,7 +104,7 @@ const TodoForm = () => {
             </Form.Group>
           </Form>
         </Modal.Body>  
-      </Modal>
+      </Modal> */}
 
 
     </div>

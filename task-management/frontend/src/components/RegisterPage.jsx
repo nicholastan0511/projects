@@ -50,10 +50,11 @@ const RegisterPage = () => {
     <div className="regisPage">
       <div className="welcome-regisPage">
         <h1>Register</h1>
+        <p>Welcome aboard! 🏄</p>
       </div>
       <Form onSubmit={handleSubmit} validated={validated} noValidate className="regisForm">
         <Form.Group>
-            <Form.Label>username</Form.Label>
+            <Form.Label className="form-login-label">username</Form.Label>
             <Form.Control
             type="text"
             name="username"
@@ -105,6 +106,11 @@ const RegisterPage = () => {
           </Button>
         </div>
       </Form>
+      <div className="linebreak">
+          <span></span>
+          <p>OR</p>
+          <span></span>
+       </div>
       <div className="login-reference-regisPage">
         <p>Already have an account? <Link to='/login'>Login here!</Link></p>
       </div>

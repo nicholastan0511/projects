@@ -13,7 +13,7 @@ const Timer = ({ deadlineWithDay, done }) => {
     return {
       days: Math.floor(difference / (1000 * 60 * 60 * 24)),
       hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      months: Math.floor((difference / (1000 * 60)) % 60),
+      minutes: Math.floor((difference / (1000 * 60)) % 60),
       seconds: Math.floor((difference / 1000) % 60)
     }
   }
@@ -35,7 +35,7 @@ const Timer = ({ deadlineWithDay, done }) => {
 
   return (
     <div>
-      Time until deadline: <span className="timer">{timer.days} days, {timer.hours} hours, {timer.months} months, {timer.seconds} seconds.</span>
+      Time until deadline: <span className="timer">{timer.days} days, {timer.hours} hours, {timer.minutes} minutes</span>
     </div>
   )
 }

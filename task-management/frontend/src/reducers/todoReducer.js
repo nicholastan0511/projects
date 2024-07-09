@@ -74,15 +74,17 @@ export const addTodo = (obj) => {
 
 export const changeFavorite = (obj) => {
   return async dispatch => {
-    const response = await todoService.favorite(obj)
-    dispatch(alterFavorite(response))
+    dispatch(alterFavorite({ ...obj, favorite: obj.favorite === 'true' ? 'false' : 'true', user: userService.id }))
+    await todoService.favorite(obj)
+    // console.log(response, obj)
+   
   }
 }
 
 export const changeDone = (obj) => {
   return async dispatch => {
-    const response = await todoService.done(obj)
-    dispatch(alterDone(response))
+    dispatch(alterDone({ ...obj, done: obj.done === 'true' ? 'false' : 'true', user: userService.id }))
+    await todoService.done(obj)
   }
 }
 
@@ -97,7 +99,7 @@ export const modifyTask = (obj) => {
   return async dispatch => {
     try {
       const response = await todoService.modifyTask(obj)
-      console.log(response)
+      // console.log(response)
       dispatch(modify(response))
     } catch (err) {
       dispatch(setError('errrr'))

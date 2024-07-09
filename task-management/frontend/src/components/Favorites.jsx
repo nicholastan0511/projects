@@ -9,17 +9,17 @@ const Favorites = () => {
     return <div>fetching...</div>
 
   const favorites = todos.filter(todo => todo.favorite == 'true')
-  
+
   return (
     <div className="favorites">
-        <span className="todolist-title">Favorite tasks</span>
+        <span className="todolist-title">Favorite tasks ❤️</span>
         {favorites.length > 0 
             ? (
-                <ListGroup>
+                <div className="tdl-container">
                     {favorites.map(todo => 
                         <TodoItem key={todo.id} todo={todo} />
                     )}
-                </ListGroup> 
+                </div> 
               )
             : <div>Currently no favorites!</div>
         }

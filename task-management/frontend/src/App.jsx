@@ -14,7 +14,6 @@ import PomodoroPage from "./components/Pomodoro"
 import Error from "./components/Error"
 import { setError } from "./reducers/erorrReducer"
 import Sidebar from "./components/Sidebar"
-import Footer from "./components/Footer"
 import {
   Routes, 
   Route,
@@ -51,8 +50,8 @@ const App = () => {
     } 
   }, [])
 
-  console.log(user.token)
-  console.log(location.pathname)
+  // console.log(user.token)
+  // console.log(location.pathname)
 
   return (
       <div className="app">
@@ -64,9 +63,9 @@ const App = () => {
             <Route path="/favorites" element={user.token ? <Favorites /> : <Navigate replace to='/'/>} />
             <Route path="/finished" element={user.token ? <Finished /> : <Navigate replace to='/'/>} />
             <Route path="/register" element={!user.token ? <RegisterPage /> : <Navigate replace to='/'/>}/>
-            <Route path="/login" element={!user.token ? <LoginPage /> : <Navigate replace to='/'/>}/>
+            <Route path="/login" element={!user.token ? <LoginPage /> : <Navigate replace to='/'/>} />
             <Route path="*" element={<Navigate replace to='/' />} />
-            <Route path="/pomodoro" element={<PomodoroPage />} />
+            <Route path="/pomodoro" element={user.token ? <PomodoroPage /> : <Navigate replace to='/'/>} />
           </Routes>
           {location.pathname !== '/pomodoro' ? <TodoForm /> : null}
         </div>

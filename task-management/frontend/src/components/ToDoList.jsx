@@ -13,14 +13,14 @@ const ToDoList = () => {
 
   return (
     <div>
-        <span className="todolist-title">To do list</span>
+        <span className="todolist-title">To do list 🔧</span>
         {undone.length > 0
           ? (
-            <ListGroup>
+            <div className='tdl-container'>
               {undone.map(todo => 
                 <TodoItem key={todo.id} todo={todo} />
               )}
-            </ListGroup>
+            </div>
           )
           : <div>No tasks as of current!</div>
         }

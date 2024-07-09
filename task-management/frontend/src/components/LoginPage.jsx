@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { loginUser } from "../reducers/userReducer"
 import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 const LoginPage = () => {
   const [username, setUsername] = useState('')
@@ -33,11 +34,11 @@ const LoginPage = () => {
     <div className="loginPage">
       <div className="welcome-loginpage">
         <h1>Login</h1>
-        <p>Welcome aboard! 🏄</p>
+        <p>Welcome back my friend! 🏄</p>
       </div>
       <Form onSubmit={onSubmit} className="loginForm" validated={validated} noValidate>
         <Form.Group>
-            <Form.Label className="form-login-label" >USERNAME</Form.Label>
+            <Form.Label className="form-login-label" >Username</Form.Label>
             <Form.Control
             type="text"
             name="username"
@@ -49,7 +50,7 @@ const LoginPage = () => {
             <Form.Control.Feedback type="invalid">Please insert valid username</Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
-            <Form.Label className="form-login-label">PASSWORD</Form.Label>
+            <Form.Label className="form-login-label">Password</Form.Label>
             <Form.Control
             type="password"
             value={password}
@@ -65,8 +66,14 @@ const LoginPage = () => {
           </Button>
         </div>
       </Form>
+      <div className="linebreak">
+        <span></span>
+        <p>OR</p>
+        <span></span>
+      </div>
       <span className="account">Don't have an account? 
-        <Button variant="primary" size='sm' onClick={() => navigate('/register')} className="btn-loginpage">register here!</Button>
+        {/* <Button variant="primary" size='sm' onClick={() => navigate('/register')} className="btn-loginpage">register here!</Button> */}
+        <Link to='/register'>Register here!</Link>
       </span>
     </div>
   ) 

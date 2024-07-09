@@ -61,7 +61,7 @@ const modifyTask = async (obj) => {
     headers: { authorization: token }
   }
 
-  console.log(config)
+  // console.log(config)
 
   const response = await axios.put(`${baseUrl}/${obj.id}`, obj, config)
   return response.data
