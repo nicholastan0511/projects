@@ -509,3 +509,13 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
+@media (max-width: 435px) {
+  .pomoContainer {
+    min-width: 350px; 
+  }
+
+  .clock-pomo {
+    font-size: 70px;
+  }
+}
+
