@@ -48,7 +48,10 @@ const PomodoroPage   = () => {
   const [selected, setSelected] = useState(null)
   const [menu, setMenu] = useState({ title: 'POMODORO', countdown: 25*60 })
   const [quote, setQuote] = useState(null)
+  const [liquid, setLiquid] = useState(0)
+  const [displayBar, setDisplayBar] = useState('none')
 
+  // get random quote api
   const getRandomQuote = async () => {
     const randomQuote = await quoteService.fetchRandomQuote()
     setQuote(randomQuote)
@@ -62,21 +65,37 @@ const PomodoroPage   = () => {
   }, [])
 
   const dispatch = useDispatch()
-
   const todos = useSelector(state => state.todos)
   const undone = todos.filter(todo => todo.done === 'false')
 
   // console.log(undone)
 
   useEffect(() => {
+    // variable that calculates the frequency in which to update the progress bar by percentage (* 1000 converts the value into seconds for setInterval format)
+    const liquidUpdateFrequency = (countdown / 100) * 1000
+
+    console.log(liquidUpdateFrequency)
+    
+    // function to update progress bar
+    const updateProgressBar = () => {
+      setLiquid(prevLiquid => {
+        if (prevLiquid >= 100) {
+          clearInterval(progressBarID)
+        } else {
+          return prevLiquid + 1
+        }
+      })
+    }
+
     // Function to update the countdown display
-    const updateCountdown = (timerID) => {
+    const updateCountdown = () => {
       setCountdown(prevCountdown => {
         if (prevCountdown <= 1) {
           clearInterval(timerID);
           notifyUser()
           setTimeout(() => {           
             restartCountdown(menu.countdown)
+            setDisplayBar('none')
             // if there is a task selected
 
           }, 10000)
@@ -90,14 +109,23 @@ const PomodoroPage   = () => {
 
     // Start the countdown
     let timerID
+    let progressBarID
 
     if (start) {
       timerID = setInterval(updateCountdown, 1000); // Update every second
+      progressBarID = setInterval(updateProgressBar, liquidUpdateFrequency)
+      setDisplayBar('flex')
     }
   
     // Cleanup the interval on component unmount
-    return () => clearInterval(timerID);
-  }, [start]); // Empty dependency array to run once on mount
+    return () => {
+      clearInterval(timerID);
+      clearInterval(progressBarID)
+    }
+  }, [start]); 
+
+
+  console.log(liquid)
 
   // Convert seconds to minutes and seconds format
   const minutes = Math.floor(countdown / 60);
@@ -118,10 +146,13 @@ const PomodoroPage   = () => {
     if (start)
       setStart(false)
     setCountdown(countdown)
+    setLiquid(0)
+    setDisplayBar('none')
   }
 
   const handleSelect = (todo) => {
     setSelected(todo)
+    setDisplayBar('none')
   }
 
   const handleChangeMenu = (menu) => {
@@ -150,6 +181,9 @@ const PomodoroPage   = () => {
         </div>
 
         <div className='pomoSmallContainer'>
+          <div className='progressBar-pomo' style={{ display: `${displayBar}` }}>
+            <div className='liquid' style={{ width: `${liquid}%` }}></div>
+          </div>
           <div className="pomoPicContainer">
             <img src={PomodoroIcon} alt="Tomato" className='pomoPic' />
           </div>

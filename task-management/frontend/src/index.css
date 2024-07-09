@@ -519,3 +519,19 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
+.progressBar-pomo {
+  width: 40%;
+  height: 12px;
+  border-radius: 10px;
+  border: 3px solid #555555;
+  display: flex;
+  align-items: center;  
+  overflow: hidden;
+}
+
+.liquid {
+  border-radius: 10px;
+  background-color: red;
+  height: 10px;
+  transition: width 500ms ease;
+}
